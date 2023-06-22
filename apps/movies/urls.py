@@ -6,3 +6,4 @@ urlpatterns = [
     path('', MovieListApiView.as_view(), name='movies_list'),
     path('detail/<slug:slug>/', MovieDetailApiView.as_view(), name='movies_detail'),
 ]
+

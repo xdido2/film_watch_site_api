@@ -7,7 +7,7 @@ from rest_framework.response import Response
 
 from apps.shared.utils.token_gen import account_activation_token
 from apps.users.models import User
-from users.serializers.register_serializer import RegisterSerializer
+from apps.users.serializers.register_serializer import RegisterSerializer
 
 
 class RegisterView(CreateAPIView):

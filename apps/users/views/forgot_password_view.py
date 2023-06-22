@@ -2,13 +2,13 @@ from django.shortcuts import get_object_or_404
 from django.utils.encoding import force_str, force_bytes
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from rest_framework import status
-from rest_framework.generics import CreateAPIView
+from rest_framework.generics import CreateAPIView, UpdateAPIView
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 
 from apps.shared.utils.token_gen import account_activation_token
 from apps.users.models import User
-from users.serializers.forgot_password_serializer import ForgotPasswordSerializer, ForgotPasswordActivateSerializer
+from apps.users.serializers.forgot_password_serializer import ForgotPasswordSerializer, ForgotPasswordActivateSerializer
 
 
 class ForgotPasswordView(CreateAPIView):
@@ -27,11 +27,11 @@ class ForgotPasswordView(CreateAPIView):
         return Response(response_data, status=status.HTTP_200_OK)
 
 
-class ForgotPasswordActivateView(CreateAPIView):
+class ForgotPasswordActivateView(UpdateAPIView):
     permission_classes = (AllowAny,)
     serializer_class = ForgotPasswordActivateSerializer
 
-    def post(self, request, *args, **kwargs):
+    def patch(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         uid = kwargs['uidb64']

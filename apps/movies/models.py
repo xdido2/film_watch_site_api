@@ -1,5 +1,5 @@
 from autoslug import AutoSlugField
-from django.db.models import Model, CharField
+from django.db.models import Model, CharField, IntegerField
 
 
 class Movie(Model):
@@ -9,6 +9,7 @@ class Movie(Model):
     iframe_src = CharField(max_length=255, unique=True)
     imdb_id = CharField(max_length=25)
     kinopoisk_id = CharField(max_length=25)
+    view_count = IntegerField(default=0)
     slug_link = AutoSlugField(populate_from='ru_title',
                               unique_with=['ru_title'])
 
