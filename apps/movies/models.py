@@ -4,6 +4,11 @@ from django.db.models import Model, CharField, IntegerField, ForeignKey, CASCADE
 from root.settings import AUTH_USER_MODEL
 
 
+class Favourite(Model):
+    user = ForeignKey(AUTH_USER_MODEL, CASCADE)
+    movie = ForeignKey('Movie', CASCADE)
+
+
 class Movie(Model):
     ru_title = CharField(max_length=255)
     orig_title = CharField(max_length=255)
@@ -12,7 +17,7 @@ class Movie(Model):
     imdb_id = CharField(max_length=25)
     kinopoisk_id = CharField(max_length=25)
     view_count = IntegerField(default=0)
-    # favourite = ...
+    favourites_count = IntegerField(default=0)
     slug_link = AutoSlugField(populate_from='ru_title',
                               unique_with=['ru_title'])
 
@@ -22,8 +27,3 @@ class Movie(Model):
 
     def __str__(self):
         return self.ru_title
-
-
-class Favourite(Model):
-    user = ForeignKey(AUTH_USER_MODEL, CASCADE)
-    movie = ForeignKey('Movie', CASCADE)
