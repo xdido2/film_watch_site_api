@@ -1,11 +1,14 @@
 from rest_framework import status
+from rest_framework.generics import DestroyAPIView, CreateAPIView
 from rest_framework.response import Response
-from rest_framework.views import APIView
 
 from apps.movies.models import Favourite
+from apps.movies.serializers import FavouriteSerializer
 
 
-class FavouriteView(APIView):
+class FavouriteView(DestroyAPIView, CreateAPIView):
+    serializer_class = FavouriteSerializer
+
     def post(self, request, *args, **kwargs):
         try:
             movie_id = request.data['movie']
@@ -25,7 +28,7 @@ class FavouriteView(APIView):
             user_id = request.data['user']
             if Favourite.objects.filter(movie_id=movie_id, user_id=user_id).exists():
                 Favourite.objects.filter(movie_id=movie_id, user_id=user_id).delete()
-                return Response({'success': 'Movie removed from favourite library'}, status=status.HTTP_201_CREATED)
+                return Response({'success': 'Movie removed from favourite library'}, status=status.HTTP_204_NO_CONTENT)
             return Response({'error': 'This movie is already removed from favourite library!'},
                             status=status.HTTP_400_BAD_REQUEST)
         except KeyError:
