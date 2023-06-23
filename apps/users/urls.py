@@ -3,8 +3,10 @@ from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 from apps.users.views.forgot_password_view import ForgotPasswordActivateView, ForgotPasswordView
 from apps.users.views.register_view import RegisterView, ActivateAccountView
+from apps.users.views.user_view import UserViewSet
 
 urlpatterns = [
+    path('user/', UserViewSet.as_view({'get': 'list'}), name='user'),
     path('login/', TokenObtainPairView.as_view(), name='login_token'),
     path('login/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('register/', RegisterView.as_view(), name='auth_register'),

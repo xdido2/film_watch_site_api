@@ -1,5 +1,5 @@
 from autoslug import AutoSlugField
-from django.db.models import Model, CharField, IntegerField, ForeignKey, CASCADE
+from django.db.models import Model, CharField, IntegerField, ForeignKey, CASCADE, DateTimeField
 
 from root.settings import AUTH_USER_MODEL
 
@@ -7,6 +7,15 @@ from root.settings import AUTH_USER_MODEL
 class Favourite(Model):
     user = ForeignKey(AUTH_USER_MODEL, CASCADE)
     movie = ForeignKey('Movie', CASCADE)
+
+
+class History(Model):
+    user = ForeignKey(AUTH_USER_MODEL, CASCADE)
+    movie = ForeignKey('Movie', CASCADE)
+    view_at = DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-view_at']
 
 
 class Movie(Model):
@@ -22,7 +31,6 @@ class Movie(Model):
                               unique_with=['ru_title'])
 
     class Meta:
-        ordering = ['-id']
         unique_together = ['ru_title', 'orig_title']
 
     def __str__(self):

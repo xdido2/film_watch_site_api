@@ -3,9 +3,10 @@ from datetime import datetime
 from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin, AbstractUser
 from django.contrib.auth.validators import UnicodeUsernameValidator
-from django.db.models import CharField, EmailField, BooleanField, DateTimeField
+from django.db.models import CharField, EmailField, BooleanField, DateTimeField, ManyToManyField
 from django.utils.translation import gettext_lazy as _
 
+from apps.movies.models import Favourite, Movie
 from apps.shared.models import CustomUserManager
 
 
