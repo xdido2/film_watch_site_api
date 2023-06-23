@@ -1,6 +1,7 @@
 from django.shortcuts import get_object_or_404
 from django.utils.encoding import force_str, force_bytes
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
+from drf_yasg.utils import swagger_auto_schema
 from rest_framework import status
 from rest_framework.generics import CreateAPIView, UpdateAPIView
 from rest_framework.permissions import AllowAny
@@ -15,6 +16,7 @@ class ForgotPasswordView(CreateAPIView):
     permission_classes = (AllowAny,)
     serializer_class = ForgotPasswordSerializer
 
+    @swagger_auto_schema(tags=['Forgot password'])
     def post(self, request, *args, **kwargs):
         email = request.data['email']
         user = get_object_or_404(User, email=email)
@@ -31,6 +33,7 @@ class ForgotPasswordActivateView(UpdateAPIView):
     permission_classes = (AllowAny,)
     serializer_class = ForgotPasswordActivateSerializer
 
+    @swagger_auto_schema(tags=['Forgot password'])
     def patch(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)

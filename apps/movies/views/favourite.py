@@ -6,7 +6,7 @@ from rest_framework.response import Response
 
 from apps.movies.models import Favourite
 from apps.movies.models import Movie
-from apps.movies.serializers import FavouriteSerializer
+from apps.movies.serializers.favourite_serializer import FavouriteSerializer
 
 
 class FavouriteCreateDestroyView(DestroyAPIView, ListCreateAPIView):

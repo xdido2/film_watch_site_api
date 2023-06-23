@@ -1,8 +1,8 @@
 from django.urls import path
 
 from apps.movies.views.favourite import FavouriteCreateDestroyView
-from apps.movies.views.movie import MovieListApiView, MovieDetailApiView
 from apps.movies.views.history import HistoryCreateView
+from apps.movies.views.movie import MovieListApiView, MovieDetailApiView
 
 urlpatterns = [
     path('', MovieListApiView.as_view(), name='movies_list'),

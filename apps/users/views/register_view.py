@@ -1,5 +1,6 @@
 from django.utils.encoding import force_str, force_bytes
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
+from drf_yasg.utils import swagger_auto_schema
 from rest_framework import status
 from rest_framework.generics import CreateAPIView
 from rest_framework.permissions import AllowAny
@@ -16,6 +17,7 @@ class RegisterView(CreateAPIView):
     permission_classes = (AllowAny,)
     serializer_class = RegisterSerializer
 
+    @swagger_auto_schema(tags=['Account activate'])
     def post(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -33,6 +35,7 @@ class RegisterView(CreateAPIView):
 class ActivateAccountView(APIView):
     permission_classes = (AllowAny,)
 
+    @swagger_auto_schema(tags=['Account activate'])
     def post(self, request, *args, **kwargs):
         uid = kwargs['uidb64']
         token = kwargs['token']

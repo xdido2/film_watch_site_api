@@ -6,7 +6,8 @@ from apps.users.views.register_view import RegisterView, ActivateAccountView
 from apps.users.views.user_view import UserViewSet
 
 urlpatterns = [
-    path('user/', UserViewSet.as_view({'get': 'list'}), name='user'),
+    path('user-profile/', UserViewSet.as_view(), name='user'),
+    
     path('login/', TokenObtainPairView.as_view(), name='login_token'),
     path('login/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('register/', RegisterView.as_view(), name='auth_register'),

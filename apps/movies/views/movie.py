@@ -4,7 +4,7 @@ from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
 from apps.movies.models import Movie
 from apps.movies.paginations import MoviePagination
-from apps.movies.serializers import MovieSerializer
+from apps.movies.serializers.movie_serializer import MovieSerializer
 
 
 class MovieListApiView(ListAPIView):

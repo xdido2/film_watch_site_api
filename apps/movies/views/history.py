@@ -4,7 +4,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
 from apps.movies.models import History
-from apps.movies.serializers import HistorySerializer
+from apps.movies.serializers.history_serializer import HistorySerializer
 
 
 class HistoryCreateView(ListCreateAPIView):
@@ -25,6 +25,6 @@ class HistoryCreateView(ListCreateAPIView):
             History.objects.filter(user_id=user.pk, movie_id=movie_id).delete()
             history = History.objects.create(user_id=user.pk, movie_id=movie_id)
             history.save()
-            return Response({'success': 'Movie is added to your history library 2!'}, status=status.HTTP_201_CREATED)
+            return Response({'success': 'Movie is added to your history library!'}, status=status.HTTP_201_CREATED)
         except KeyError:
             return Response({'error': 'Movie id and user id are required!'}, status=status.HTTP_400_BAD_REQUEST)
