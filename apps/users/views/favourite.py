@@ -4,9 +4,9 @@ from rest_framework.generics import DestroyAPIView, ListCreateAPIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
-from apps.movies.models import Favourite
+from apps.users.models.favourite import Favourite
 from apps.movies.models import Movie
-from apps.movies.serializers.favourite_serializer import FavouriteSerializer
+from apps.users.serializers.favourite_serializer import FavouriteSerializer
 
 
 class FavouriteCreateDestroyView(DestroyAPIView, ListCreateAPIView):

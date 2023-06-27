@@ -3,7 +3,7 @@ from rest_framework.generics import UpdateAPIView, ListAPIView
 from rest_framework.parsers import MultiPartParser, JSONParser
 from rest_framework.response import Response
 
-from apps.users.models import User
+from apps.users.models.user import User
 from apps.users.serializers.users_serializer import UserSerializer
 
 

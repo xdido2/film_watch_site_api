@@ -3,7 +3,7 @@ from rest_framework.exceptions import ValidationError
 from rest_framework.fields import CharField
 from rest_framework.serializers import EmailField, ModelSerializer
 
-from apps.users.models import User
+from apps.users.models.user import User
 
 
 class ForgotPasswordSerializer(ModelSerializer):

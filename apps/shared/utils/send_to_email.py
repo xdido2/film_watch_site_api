@@ -6,7 +6,7 @@ from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
 
 from apps.shared.utils.token_gen import account_activation_token
-from apps.users.models import User
+from apps.users.models.user.user import User
 from root.settings import EMAIL_HOST_USER
 
 
@@ -27,7 +27,7 @@ def send_email(protocol, domain, email: str, type_):
         send_mail(subject, message, from_email, recipient_list)
 
     # elif type_ == 'forgot_password':
-    #     message = render_to_string('films/auth/activate-account-for-forgot-password.html', {
+    #     message = render_to_string('films/user_auth/activate-account-for-forgot-password.html', {
     #         'user': user,
     #         'protocol': protocol,
     #         'domain': domain,

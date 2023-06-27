@@ -4,7 +4,7 @@ from rest_framework.fields import CharField
 from rest_framework.serializers import EmailField, ModelSerializer
 from rest_framework.validators import UniqueValidator
 
-from apps.users.models import User
+from apps.users.models.user import User
 
 
 class RegisterSerializer(ModelSerializer):

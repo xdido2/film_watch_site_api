@@ -1,21 +1,5 @@
 from autoslug import AutoSlugField
-from django.db.models import Model, CharField, IntegerField, ForeignKey, CASCADE, DateTimeField
-
-from root.settings import AUTH_USER_MODEL
-
-
-class Favourite(Model):
-    user = ForeignKey(AUTH_USER_MODEL, CASCADE)
-    movie = ForeignKey('Movie', CASCADE)
-
-
-class History(Model):
-    user = ForeignKey(AUTH_USER_MODEL, CASCADE)
-    movie = ForeignKey('Movie', CASCADE)
-    view_at = DateTimeField(auto_now_add=True)
-
-    class Meta:
-        ordering = ['-view_at']
+from django.db.models import Model, CharField, IntegerField
 
 
 class Movie(Model):

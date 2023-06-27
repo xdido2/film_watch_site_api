@@ -1,21 +1,11 @@
 from django.urls import path
-from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
-from apps.users.views.forgot_password_view import ForgotPasswordActivateView, ForgotPasswordView
-from apps.users.views.register_view import RegisterView, ActivateAccountView
 from apps.users.views.user_view import UserViewSet
+from apps.users.views.favourite import FavouriteCreateDestroyView
+from apps.users.views.history import HistoryCreateView
 
 urlpatterns = [
     path('user-profile/', UserViewSet.as_view(), name='user'),
-    
-    path('login/', TokenObtainPairView.as_view(), name='login_token'),
-    path('login/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    path('register/', RegisterView.as_view(), name='auth_register'),
-    path('forgot-password/', ForgotPasswordView.as_view(), name='forgot-password'),
-
-    path('activate-register/<str:uidb64>/<str:token>',
-         ActivateAccountView.as_view(), name='activate-account'),
-    path('forgot-passoword/<str:uidb64>/<str:token>',
-         ForgotPasswordActivateView.as_view(), name='forgot-password-activate'),
-
+    path('favourite/', FavouriteCreateDestroyView.as_view(), name='favourite'),
+    path('history/', HistoryCreateView.as_view(), name='history'),
 ]

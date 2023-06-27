@@ -1,13 +1,12 @@
 from rest_framework.serializers import ModelSerializer
 
-from apps.movies.models import Favourite
+from apps.users.models.history import History
 from apps.movies.serializers.movie_serializer import MovieSerializer
 
 
-class FavouriteSerializer(ModelSerializer):
+class HistorySerializer(ModelSerializer):
     movie = MovieSerializer()
 
     class Meta:
-        model = Favourite
+        model = History
         fields = 'movie',
-        # depth = 1

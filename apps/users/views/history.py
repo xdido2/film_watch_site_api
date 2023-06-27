@@ -3,8 +3,8 @@ from rest_framework.generics import ListCreateAPIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
-from apps.movies.models import History
-from apps.movies.serializers.history_serializer import HistorySerializer
+from apps.users.models.history import History
+from apps.users.serializers.history_serializer import HistorySerializer
 
 
 class HistoryCreateView(ListCreateAPIView):
