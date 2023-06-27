@@ -26,11 +26,9 @@ def movie_data_from_api():
             file_name = f'{imdb_id}.{image_extension}'
             file_path = f'movies/posters/{file_name}'
 
-            # Download the image file
             response = requests.get(image_url)
             content_file = ContentFile(response.content)
 
-            # Save the image file using Django's default storage
             default_storage.save(file_path, content_file)
 
             objects = {
