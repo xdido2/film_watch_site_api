@@ -8,8 +8,12 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from apps.shared.utils.token_gen import account_activation_token
-from apps.users.models.user import User
 from apps.user_auth.serializers.register_serializer import RegisterSerializer
+from apps.users.models.user import User
+from apps.shared.utils.send_to_email import send_email
+
+
+# from shared.utils.send_to_email import send_email
 
 
 class RegisterView(CreateAPIView):
@@ -17,11 +21,14 @@ class RegisterView(CreateAPIView):
     permission_classes = (AllowAny,)
     serializer_class = RegisterSerializer
 
-    @swagger_auto_schema(tags=['Account activate'])
     def post(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = serializer.save()
+        host = request.META['HTTP_ORIGIN']
+        email = request.data['email']
+
+        send_email.delay(host, email, 'register')
 
         response_data = {
             'message': 'User registered successfully, check your email for activate your account!',
