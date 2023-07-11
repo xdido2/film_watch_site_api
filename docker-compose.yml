@@ -12,7 +12,7 @@ services:
     env_file:
       - .env
     depends_on:
-      - pgdata
+      - db_service
   minio:
     container_name: minio
     image: minio/minio
