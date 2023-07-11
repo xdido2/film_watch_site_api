@@ -23,15 +23,15 @@ services:
       - POSTGRES_PASSWORD=1
       - POSTGRES_DB=film_watch_site
 
-  rabbitmq:
-    image: rabbitmq:3-management
-    container_name: rabbitmq
-    environment:
-      - RABBITMQ_DEFAULT_USER=admin
-      - RABBITMQ_DEFAULT_PASS=password
-    ports:
-      - 5675:5672
-      - 15675:15672
+#  rabbitmq:
+#    image: rabbitmq:3-management
+#    container_name: rabbitmq
+#    environment:
+#      - RABBITMQ_DEFAULT_USER=admin
+#      - RABBITMQ_DEFAULT_PASS=password
+#    ports:
+#      - 5675:5672
+#      - 15675:15672
 
   minio:
     image: minio/minio
