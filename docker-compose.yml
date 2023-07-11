@@ -3,7 +3,7 @@ version: '3.8'
 services:
   web_service:
     build: .
-    command: gunicorn root.wsgi:application --bind 0.0.0.0:8000
+    command: gunicorn root.wsgi:application --bind 8000
     ports:
       - 8001:8000
     env_file:
