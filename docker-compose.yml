@@ -42,8 +42,7 @@ services:
       - MINIO_SECRET_KEY=adNMkS71ZpDxTEXQ
     volumes:
       - minio-data:/data
-    command: server /data
-
+    command: server --console-address ":9001" /data
 
 
   nginx:
@@ -60,8 +59,8 @@ services:
     volumes:
       - static_volume:/app/static
       - media_volume:/app/media
-      - ./certbot/conf:/etc/letsencrypt
-      - ./certbot/www:/var/www/docker/abdurashid/certbot
+#      - ./certbot/conf:/etc/letsencrypt
+#      - ./certbot/www:/var/www/docker/abdurashid/certbot
 #  certbot:
 #    image: certbot/certbot:latest
 #    volumes:
