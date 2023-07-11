@@ -587,40 +587,6 @@ cyrillic = ["pytils (>=0.2)"]
 translitcodec = ["translitcodec (>=0.3)"]
 
 [[package]]
-name = "django-elasticsearch-dsl"
-version = "7.3"
-description = "Wrapper around elasticsearch-dsl-py for django models"
-optional = false
-python-versions = "*"
-files = [
-    {file = "django-elasticsearch-dsl-7.3.tar.gz", hash = "sha256:084a790edf26131a7897d13a3b5c08a6e129ca145b2b3fcbc2b2d4e902a919c1"},
-    {file = "django_elasticsearch_dsl-7.3-py2.py3-none-any.whl", hash = "sha256:c1be1c6d25ee6e99dc246282a4f6de8cc0630d0f8d9863ed512c0baa9d21be94"},
-]
-
-[package.dependencies]
-elasticsearch-dsl = ">=7.2.0,<8.0.0"
-six = "*"
-
-[[package]]
-name = "django-elasticsearch-dsl-drf"
-version = "0.22.5"
-description = "Integrate Elasticsearch DSL with Django REST framework."
-optional = false
-python-versions = ">=2.7"
-files = [
-    {file = "django-elasticsearch-dsl-drf-0.22.5.tar.gz", hash = "sha256:b444f168535ff99244cc995ec354a31abcbf3fc03bd7b11ec1a3f43c7208f63a"},
-    {file = "django_elasticsearch_dsl_drf-0.22.5-py2.py3-none-any.whl", hash = "sha256:fc0b3960e16f6c06de4f2ca4daf1134376fce4d496c1ddc218c23daddf6bcaa0"},
-]
-
-[package.dependencies]
-django-elasticsearch-dsl = ">=6.4.1"
-django-nine = ">=0.2"
-djangorestframework = "*"
-elasticsearch = "*"
-elasticsearch-dsl = "*"
-six = ">=1.9"
-
-[[package]]
 name = "django-filter"
 version = "23.2"
 description = "Django-filter is a reusable Django application for allowing users to filter querysets dynamically."
@@ -633,21 +599,6 @@ files = [
 
 [package.dependencies]
 Django = ">=3.2"
-
-[[package]]
-name = "django-nine"
-version = "0.2.7"
-description = "Version checking library."
-optional = false
-python-versions = "*"
-files = [
-    {file = "django-nine-0.2.7.tar.gz", hash = "sha256:304e0f83cea5a35359375fc919d00f9917b655c1d388244cbfc7363f59489177"},
-    {file = "django_nine-0.2.7-py2.py3-none-any.whl", hash = "sha256:4d93208ca5bb4a63bf65cf098a82ee469127b04ebde698d72fe12d258b73c291"},
-]
-
-[package.dependencies]
-Django = "*"
-packaging = "*"
 
 [[package]]
 name = "django-storages"
@@ -733,46 +684,6 @@ uritemplate = ">=3.0.0"
 [package.extras]
 coreapi = ["coreapi (>=2.3.3)", "coreschema (>=0.0.4)"]
 validation = ["swagger-spec-validator (>=2.1.0)"]
-
-[[package]]
-name = "elasticsearch"
-version = "7.9.1"
-description = "Python client for Elasticsearch"
-optional = false
-python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, <4"
-files = [
-    {file = "elasticsearch-7.9.1-py2.py3-none-any.whl", hash = "sha256:8c7e2374f53ee1b891ff2804116e0c7fb517585d6d5788ba668686bbc9d82e2d"},
-    {file = "elasticsearch-7.9.1.tar.gz", hash = "sha256:5e08776fbb30c6e92408c7fa8c37d939210d291475ae2f364f0497975918b6fe"},
-]
-
-[package.dependencies]
-certifi = "*"
-urllib3 = ">=1.21.1"
-
-[package.extras]
-async = ["aiohttp (>=3,<4)", "yarl"]
-develop = ["black", "coverage", "jinja2", "mock", "pytest", "pytest-cov", "pyyaml", "requests (>=2.0.0,<3.0.0)", "sphinx (<1.7)", "sphinx-rtd-theme"]
-docs = ["sphinx (<1.7)", "sphinx-rtd-theme"]
-requests = ["requests (>=2.4.0,<3.0.0)"]
-
-[[package]]
-name = "elasticsearch-dsl"
-version = "7.4.1"
-description = "Python client for Elasticsearch"
-optional = false
-python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
-files = [
-    {file = "elasticsearch-dsl-7.4.1.tar.gz", hash = "sha256:07ee9c87dc28cc3cae2daa19401e1e18a172174ad9e5ca67938f752e3902a1d5"},
-    {file = "elasticsearch_dsl-7.4.1-py2.py3-none-any.whl", hash = "sha256:97f79239a252be7c4cce554c29e64695d7ef6a4828372316a5e5ff815e7a7498"},
-]
-
-[package.dependencies]
-elasticsearch = ">=7.0.0,<8.0.0"
-python-dateutil = "*"
-six = "*"
-
-[package.extras]
-develop = ["coverage (<5.0.0)", "mock", "pytest (>=3.0.0)", "pytest-cov", "pytest-mock (<3.0.0)", "pytz", "sphinx", "sphinx-rtd-theme"]
 
 [[package]]
 name = "flower"
@@ -2213,4 +2124,4 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "67267c676074d651c01d0861c4ebe100cb61e988739adf969b021beb4f11c617"
+content-hash = "42a5c04ac32ad4fc5b49f339fff8ec95197148cba4ec8477a3b42ff22bdbf8b4"
