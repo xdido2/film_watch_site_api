@@ -42,7 +42,7 @@ services:
       - MINIO_SECRET_KEY=adNMkS71ZpDxTEXQ
     volumes:
       - minio-data:/data
-    command: server --console-address ":9001" /data
+    command: server /data
 
 
 
