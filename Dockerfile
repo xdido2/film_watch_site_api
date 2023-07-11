@@ -14,7 +14,7 @@ COPY . /app
 RUN --mount=type=cache,id=custom-pip,target=/root/.cache/pip pip install -r /app/requirements.txt
 
 
-RUN sed -i 's/\r$//g' /app/entrypoint.sh
+RUN /app/entrypoint.sh
 RUN chmod +x /app/entrypoint.sh
 RUN celery -A root beat -l INFO
 RUN celery -A root.celery -l INFO
