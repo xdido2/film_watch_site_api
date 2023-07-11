@@ -13,7 +13,7 @@ WORKDIR /app
 COPY . /app
 RUN --mount=type=cache,id=custom-pip,target=/root/.cache/pip pip install -r /app/requirements.txt
 
-
+RUN python3 manage.py migrate
 #RUN #sed -i 's/\r$//g' /app/entrypoint.sh
 #RUN #chmod +x /app/entrypoint.sh
 #RUN celery -A root beat -l INFO
