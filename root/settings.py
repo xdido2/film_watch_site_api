@@ -30,8 +30,6 @@ INSTALLED_APPS = [
     # Third party apps
     'rest_framework',
     'drf_yasg',
-    'django_elasticsearch_dsl',
-    'django_elasticsearch_dsl_drf',
 
 ]
 
