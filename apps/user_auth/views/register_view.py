@@ -29,7 +29,7 @@ class RegisterView(CreateAPIView):
         host = get_current_site(request).domain
         email = request.data['email']
 
-        send_email.delay(host, email, 'register')
+        # send_email.delay(host, email, 'register')
 
         response_data = {
             'message': 'User registered successfully, check your email for activate your account!',
