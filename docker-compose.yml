@@ -20,7 +20,6 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     environment:
-      - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=1
       - POSTGRES_DB=film_watch_site
 
