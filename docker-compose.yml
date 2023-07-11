@@ -46,7 +46,7 @@ services:
   nginx:
     build: ./nginx
     ports:
-      - "80:80"
+      - "2023:80"
     depends_on:
       - web_service
     logging:
