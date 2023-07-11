@@ -12,7 +12,6 @@ services:
       - static_volume:/app/static
       - media_volume:/app/media
     depends_on:
-      - rabbitmq
       - db_service
 
   db_service:
