@@ -94,7 +94,7 @@ DATABASES = {
 
 AUTH_USER_MODEL = 'users.User'
 
-CELERY_BROKER_URL = 'amqp://user:password@localhost/'
+CELERY_BROKER_URL = 'amqp://user:password@rabbitmq/'
 
 LANGUAGE_CODE = 'en-us'
 
@@ -136,11 +136,6 @@ SWAGGER_SETTINGS = {
     }
 }
 
-ELASTICSEARCH_DSL = {
-    'default': {
-        'hosts': 'localhost:9200'
-    },
-}
 
 DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
 

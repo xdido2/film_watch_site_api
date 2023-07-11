@@ -1,88 +1,28 @@
 version: '3.8'
 
-networks:
-  my-network:
-    driver: bridge
-
-x-minio-common: &minio-common
-  image: quay.io/minio/minio
-  command: server --console-address ":9001" http://minio{1...4}/data{1...2}
-  expose:
-    - "9000"
-    - "9001"
-  environment:
-    MINIO_ROOT_USER: ErwI5Qwh9IYJLRTBrS9mvCL6Lh4QrxXV
-    MINIO_ROOT_PASSWORD: adNMkS71ZpDxTEXQ
-  healthcheck:
-    test: [ "CMD", "curl", "-f", "http://localhost:9000/minio/health/live" ]
-    interval: 30s
-    timeout: 20s
-    retries: 3
-
-# starts 4 docker containers running minio server instances.
-# using nginx reverse proxy, load balancing, you can access
-# it through port 9000.
 services:
-  minio1:
-    <<: *minio-common
-    hostname: minio1
-    volumes:
-      - data1-1:/data1
-      - data1-2:/data2
-
-  web:
-    build:
-      context: .
-      dockerfile: ./compose/django/Dockerfile
-    image: django_web
-    # '/start' is the shell script used to run the service
-    command: /start
-    # this volume is used to map the files and folders on the host to the container
-    # so if we change code on the host, code in the docker container will also be changed
-    volumes:
-      - .:/app
-    expose:
-      - 8000
+  web_service:
+    build: .
+    command: gunicorn root.wsgi:application --bind 0.0.0.0:8000
+    ports:
+      - 8000:8000
     env_file:
       - .env
+    volumes:
+      - static_volume:/app/static
+      - media_volume:/app/media
     depends_on:
-      - elasticsearch
       - rabbitmq
-      - db
+      - db_service
 
-  db:
-    image: postgres
+  db_service:
+    image: postgres:15.3-alpine
     volumes:
       - postgres_data:/var/lib/postgresql/data/
-    ports:
-      - "5434:5432"
     environment:
-      POSTGRES_DB: film_watch_site
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: 1
-
-
-  elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.14.0
-    container_name: elasticsearch
-    environment:
-      - xpack.security.enabled=false
-      - discovery.type=single-node
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1
-      nofile:
-        soft: 65536
-        hard: 65536
-    cap_add:
-      - IPC_LOCK
-    volumes:
-      - elasticsearch-data:/usr/share/elasticsearch/data
-    ports:
-      - 9200:9200
-      - 9300:9300
-
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=1
+      - POSTGRES_DB=p8_db
 
   rabbitmq:
     image: rabbitmq:3-management
@@ -94,64 +34,45 @@ services:
       - 5672:5672
       - 15672:15672
 
-  celery_worker:
-    build:
-      context: .
-      dockerfile: ./compose/django/Dockerfile
-    image: celery_worker
-    command: /start-celeryworker
-    volumes:
-      - .:/app
-    env_file:
-      - .env
-    depends_on:
-      - rabbitmq
-      - db
-
-  celery_beat:
-    build:
-      context: .
-      dockerfile: ./compose/django/Dockerfile
-    image: celery_beat
-    command: /start-celerybeat
-    volumes:
-      - .:/app
-    env_file:
-      - .env
-    depends_on:
-      - rabbitmq
-      - db
-
-  flower:
-    build:
-      context: .
-      dockerfile: ./compose/django/Dockerfile
-    image: django_celery_example_celery_flower
-    command: /start-flower
-    volumes:
-      - .:/app
-    env_file:
-      - .env
+  minio:
+    image: minio/minio
     ports:
-      - "5555:5555"
-    depends_on:
-      - rabbitmq
-      - db
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      - MINIO_ACCESS_KEY=ErwI5Qwh9IYJLRTBrS9mvCL6Lh4QrxXV
+      - MINIO_SECRET_KEY=adNMkS71ZpDxTEXQ
+    volumes:
+      - minio-data:/data
+    command: server /data
+
+
 
   nginx:
-    build: ./compose/nginx
+    build: ./nginx
     ports:
       - "7777:80"
-    volumes:
-      - static_volume:/app
+      - "443:443"
     depends_on:
-      - web
+      - web_service
+    logging:
+      options:
+        max-size: "15m"
+        max-file: "3"
+    volumes:
+      - static_volume:/app/static
+      - media_volume:/app/media
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
+  certbot:
+    image: certbot/certbot:latest
+    volumes:
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
+    command: certonly --webroot -w /var/www/certbot/ --register-unsafely-without-email --dry-run -d xolmomin.diordev.me
 
 volumes:
-  data1-1:
-  data1-2:
+  minio-data:
   postgres_data:
-  elasticsearch-data:
-    driver: local
   static_volume:
-    driver: local
+  media_volume:
