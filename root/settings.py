@@ -94,7 +94,7 @@ DATABASES = {
 
 AUTH_USER_MODEL = 'users.User'
 
-CELERY_BROKER_URL = 'amqp://user:password@rabbitmq/'
+CELERY_BROKER_URL = 'amqp://user:password@rabbitmq:5675/'
 
 LANGUAGE_CODE = 'en-us'
 

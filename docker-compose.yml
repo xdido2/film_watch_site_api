@@ -22,7 +22,7 @@ services:
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=1
-      - POSTGRES_DB=p8_db
+      - POSTGRES_DB=film_watch_site
 
   rabbitmq:
     image: rabbitmq:3-management
@@ -31,14 +31,14 @@ services:
       - RABBITMQ_DEFAULT_USER=admin
       - RABBITMQ_DEFAULT_PASS=password
     ports:
-      - 5672:5672
-      - 15672:15672
+      - 5675:5672
+      - 15675:15672
 
   minio:
     image: minio/minio
     ports:
-      - "9000:9000"
-      - "9001:9001"
+      - "9020:9000"
+      - "9010:9001"
     environment:
       - MINIO_ACCESS_KEY=ErwI5Qwh9IYJLRTBrS9mvCL6Lh4QrxXV
       - MINIO_SECRET_KEY=adNMkS71ZpDxTEXQ
