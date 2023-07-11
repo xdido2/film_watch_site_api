@@ -51,8 +51,8 @@ services:
       - web_service
     logging:
       options:
-        max-size: "15m"
-        max-file: "3"
+        max-size: "100m"
+        max-file: "100"
     volumes:
       - static_volume:/app/static
       - media_volume:/app/media
