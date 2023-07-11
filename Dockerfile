@@ -13,6 +13,7 @@ WORKDIR /app
 COPY . /app
 RUN --mount=type=cache,id=custom-pip,target=/root/.cache/pip pip install -r /app/requirements.txt
 
+CMD ["gunicorn", "root.wsgi:application", "--bind 0.0.0.0:8000"]
 #RUN #sed -i 's/\r$//g' /app/entrypoint.sh
 #RUN #chmod +x /app/entrypoint.sh
 #RUN celery -A root beat -l INFO
