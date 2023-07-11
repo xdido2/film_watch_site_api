@@ -20,4 +20,4 @@ RUN sed -i 's/\r$//g' /app/entrypoint.sh
 #RUN celery -A root.celery -l INFO
 #RUN celery -A root flower
 
-ENTRYPOINT ["/app/entrypoint.sh"]
+#ENTRYPOINT ["/app/entrypoint.sh"]
