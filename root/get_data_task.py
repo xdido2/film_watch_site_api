@@ -58,7 +58,7 @@ def movie_data_from_api():
                     'ru_title': content.get('ru_title', ''),
                     'orig_title': content.get('orig_title', ''),
                     'released_year': movie_list['year'],
-                    'rating': movie_list['rating'],
+                    'rating_imdb': movie_list['rating'],
                     'runtime': movie_list['runtime'][0],
                     'iframe_src': 'https:' + content.get('iframe_src', ''),
                     'kinopoisk_id': content.get('kinopoisk_id', ''),

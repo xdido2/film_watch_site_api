@@ -4,11 +4,10 @@ from django.db.models import Model, CharField, IntegerField, ImageField, FloatFi
 
 class Movie(Model):
     poster = ImageField(upload_to='movies/posters', null=True, blank=True)
-    # poster = CharField()
     ru_title = CharField(max_length=255)
     orig_title = CharField(max_length=255)
     released_year = CharField(max_length=15, null=True, blank=True)
-    rating = FloatField(max_length=5)
+    rating_imdb = FloatField(max_length=5)
     runtime = IntegerField()
     iframe_src = CharField(max_length=255, unique=True)
     imdb_id = CharField(max_length=25)
