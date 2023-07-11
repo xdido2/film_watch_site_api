@@ -2,7 +2,6 @@ version: '3.8'
 
 services:
   django:
-    container_name: dj
     build: .
     command: >
       sh -c "python manage.py migrate &&
@@ -24,14 +23,14 @@ services:
     command: server /export --console-address :9001
 
   db_service:
-    container_name: pg
-    image: postgres:alpine
+    image: postgres
     ports:
       - "5435:5432"
     env_file:
       - .env
     volumes:
       - pg_volume:/var/lib/postgresql/data
+
   nginx:
     build: ./nginx
     restart: always
