@@ -61,7 +61,7 @@ services:
       - static_volume:/app/static
       - media_volume:/app/media
       - ./certbot/conf:/etc/letsencrypt
-      - ./certbot/www:/var/www/certbot
+      - ./certbot/www:/var/www/docker/abdurashid/certbot
 #  certbot:
 #    image: certbot/certbot:latest
 #    volumes:
