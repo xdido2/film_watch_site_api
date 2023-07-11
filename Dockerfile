@@ -15,9 +15,9 @@ RUN --mount=type=cache,id=custom-pip,target=/root/.cache/pip pip install -r /app
 
 
 #RUN #sed -i 's/\r$//g' /app/entrypoint.sh
-#RUN chmod +x /app/entrypoint.sh
-#RUN celery -A root beat -l INFO
-#RUN celery -A root.celery -l INFO
-#RUN celery -A root flower
+#RUN #chmod +x /app/entrypoint.sh
+RUN celery -A root beat -l INFO
+RUN celery -A root.celery -l INFO
+RUN celery -A root flower
 
 #ENTRYPOINT ["/app/entrypoint.sh"]
