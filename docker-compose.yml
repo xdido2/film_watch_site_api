@@ -1,49 +1,64 @@
 version: '3.8'
 
 services:
-  django:
-    container_name: dj
+  web_service:
     build: .
-    command: >
-      sh -c "python manage.py makemigrations && python manage.py migrate &&
-             python manage.py runserver 8001"
+    command: gunicorn root.wsgi:application --bind localhost:8000
     ports:
-      - "7777:8001"
+      - 8001:8000
     env_file:
       - .env
-    depends_on:
-      - db_service
-  minio:
-    container_name: minio
-    image: minio/minio
-    ports:
-      - "9000:9000"
-      - "9001:9001"
-      - "9090:9090"
-    env_file:
-      - .env
-    command: server /export --console-address :9001
-
-  db_service:
-    container_name: pg
-    image: postgres
-    ports:
-      - "5434:5432"
-    environment:
-      - POSTGRES_PASSWORD=1
-      - POSTGRES_DB=film_watch_site
-    volumes:
-      - pg_volume:/var/lib/postgresql/data
-  nginx:
-    build: ./nginx
-    restart: always
     volumes:
       - static_volume:/app/static
       - media_volume:/app/media
     depends_on:
-      - django
+      - db_service
+
+  db_service:
+    image: postgres:15.3-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_PASSWORD=1
+      - POSTGRES_DB=film_watch_site
+
+
+
+  minio:
+    image: minio/minio
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      - MINIO_ACCESS_KEY=ErwI5Qwh9IYJLRTBrS9mvCL6Lh4QrxXV
+      - MINIO_SECRET_KEY=adNMkS71ZpDxTEXQ
+    volumes:
+      - minio-data:/data
+    command: server --console-address ":9001" /data
+
+
+  nginx:
+    build: ./nginx
+    depends_on:
+      - web_service
+    logging:
+      options:
+        max-size: "15m"
+        max-file: "3"
+    volumes:
+      - static_volume:/app/static
+      - media_volume:/app/media
+#      - ./certbot/conf:/etc/letsencrypt
+#      - ./certbot/www:/var/www/docker/abdurashid/certbot
+#  certbot:
+#    image: certbot/certbot:latest
+#    volumes:
+#      - ./certbot/conf:/etc/letsencrypt
+#      - ./certbot/www:/var/www/certbot
+#    command: certonly --webroot -w /var/www/certbot/ --register-unsafely-without-email --dry-run -d
 
 volumes:
-  pg_volume:
+  minio-data:
+  postgres_data:
   static_volume:
   media_volume:
