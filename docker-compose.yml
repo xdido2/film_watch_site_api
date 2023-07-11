@@ -64,12 +64,12 @@ services:
       - media_volume:/app/media
       - ./certbot/conf:/etc/letsencrypt
       - ./certbot/www:/var/www/certbot
-  certbot:
-    image: certbot/certbot:latest
-    volumes:
-      - ./certbot/conf:/etc/letsencrypt
-      - ./certbot/www:/var/www/certbot
-    command: certonly --webroot -w /var/www/certbot/ --register-unsafely-without-email --dry-run -d
+#  certbot:
+#    image: certbot/certbot:latest
+#    volumes:
+#      - ./certbot/conf:/etc/letsencrypt
+#      - ./certbot/www:/var/www/certbot
+#    command: certonly --webroot -w /var/www/certbot/ --register-unsafely-without-email --dry-run -d
 
 volumes:
   minio-data:
