@@ -24,7 +24,7 @@ services:
       - .env
     command: server /export --console-address :9001
 
-  pgdata:
+  db_service:
     container_name: pg
     image: postgres
     ports:
