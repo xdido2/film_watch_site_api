@@ -3,7 +3,8 @@ version: '3.8'
 services:
   web_service:
     build: .
-    command: gunicorn root.wsgi:application --bind localhost:8000
+    command: >
+      sh -c "python manage.py makemigrations && python manage.py migrate && gunicorn root.wsgi:application --bind localhost:8000
     ports:
       - 8001:8000
     env_file:
@@ -39,6 +40,8 @@ services:
 
   nginx:
     build: ./nginx
+    ports:
+      - "7777:80"
     depends_on:
       - web_service
     logging:
