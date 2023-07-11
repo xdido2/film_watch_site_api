@@ -40,6 +40,8 @@ services:
 
   nginx:
     build: ./nginx
+    ports:
+      - "7777:80"
     depends_on:
       - web_service
     logging:
