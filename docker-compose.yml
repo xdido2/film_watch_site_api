@@ -1,72 +1,47 @@
 version: '3.8'
 
 services:
-  web_service:
+  django:
+    container_name: dj
     build: .
-    command: gunicorn root.wsgi:application --bind localhost:8000
+    command: >
+      sh -c "python manage.py migrate &&
+             python manage.py runserver 8001"
     ports:
-      - 8001:8000
+      - "8044:8001"
+    env_file:
+      - .env
+    depends_on:
+      - pgdata
+  minio:
+    container_name: minio
+    image: minio/minio
+    ports:
+      - "9010:9000"
+      - "9020:9001"
+    env_file:
+      - .env
+    command: server /export --console-address :9001
+
+  pgdata:
+    container_name: pg
+    image: postgres:alpine
+    ports:
+      - "5435:5432"
     env_file:
       - .env
     volumes:
-      - static_volume:/app/static
-      - media_volume:/app/media
-    depends_on:
-      - db_service
-
-  db_service:
-    image: postgres:15.3-alpine
-    volumes:
-      - postgres_data:/var/lib/postgresql/data/
-    environment:
-      - POSTGRES_PASSWORD=1
-      - POSTGRES_DB=film_watch_site
-
-  #  rabbitmq:
-  #    image: rabbitmq:3-management
-  #    container_name: rabbitmq
-  #    environment:
-  #      - RABBITMQ_DEFAULT_USER=admin
-  #      - RABBITMQ_DEFAULT_PASS=password
-  #    ports:
-  #      - 5675:5672
-  #      - 15675:15672
-
-  minio:
-    image: minio/minio
-    ports:
-      - "9020:9000"
-      - "9010:9001"
-    environment:
-      - MINIO_ACCESS_KEY=ErwI5Qwh9IYJLRTBrS9mvCL6Lh4QrxXV
-      - MINIO_SECRET_KEY=adNMkS71ZpDxTEXQ
-    volumes:
-      - minio-data:/data
-    command: server --console-address ":9001" /data
-
-
+      - pg_volume:/var/lib/postgresql/data
   nginx:
     build: ./nginx
-    depends_on:
-      - web_service
-    logging:
-      options:
-        max-size: "15m"
-        max-file: "3"
+    restart: always
     volumes:
       - static_volume:/app/static
       - media_volume:/app/media
-#      - ./certbot/conf:/etc/letsencrypt
-#      - ./certbot/www:/var/www/docker/abdurashid/certbot
-#  certbot:
-#    image: certbot/certbot:latest
-#    volumes:
-#      - ./certbot/conf:/etc/letsencrypt
-#      - ./certbot/www:/var/www/certbot
-#    command: certonly --webroot -w /var/www/certbot/ --register-unsafely-without-email --dry-run -d
+    depends_on:
+      - django
 
 volumes:
-  minio-data:
-  postgres_data:
+  pg_volume:
   static_volume:
   media_volume:
