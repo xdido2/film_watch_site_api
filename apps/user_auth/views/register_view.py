@@ -1,3 +1,4 @@
+from django.contrib.sites.shortcuts import get_current_site
 from django.utils.encoding import force_str, force_bytes
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from drf_yasg.utils import swagger_auto_schema
@@ -25,7 +26,7 @@ class RegisterView(CreateAPIView):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = serializer.save()
-        host = request.META['HTTP_ORIGIN']
+        host = get_current_site(request).domain
         email = request.data['email']
 
         send_email.delay(host, email, 'register')
